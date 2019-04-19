@@ -1,0 +1,7 @@
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\TwentyOne\bin\Debug\TwentyOne.exe.config
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\TwentyOne\bin\Debug\TwentyOne.exe
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\TwentyOne\bin\Debug\TwentyOne.pdb
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\TwentyOne\obj\Debug\TwentyOne.csprojAssemblyReference.cache
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\TwentyOne\obj\Debug\TwentyOne.csproj.CoreCompileInputs.cache
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\TwentyOne\obj\Debug\TwentyOne.exe
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\TwentyOne\obj\Debug\TwentyOne.pdb
