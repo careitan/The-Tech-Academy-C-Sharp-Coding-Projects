@@ -16,7 +16,6 @@ namespace TwentyOne
             player.Name = "Jesse";
             game += player;
 
-
             Deck deck = new Deck();
             deck.Shuffle(3);
 
