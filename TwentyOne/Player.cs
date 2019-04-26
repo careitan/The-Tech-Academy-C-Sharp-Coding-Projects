@@ -8,13 +8,14 @@ namespace TwentyOne
 {
     public class Player
     {
+        private List<Card> _hand = new List<Card>();
         public Player(string name, int beginningBalance)
         {
             Hand = new List<Card>();
             Balance = beginningBalance;
             Name = name;
         }
-        public List<Card> Hand { get; set; }
+        public List<Card> Hand { get { return _hand; } set { _hand = value; } }
         public int Balance { get; set; }
         public string Name { get; set; }
         public bool IsActivelyPlaying { get; set; }
