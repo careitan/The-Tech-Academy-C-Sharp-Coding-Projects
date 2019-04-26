@@ -42,7 +42,27 @@ namespace TwentyOne
                     Dealer.Deal(player.Hand);
                     if (i==1)
                     {
-
+                        bool blackJack = TwentyOneRules.CheckForBlackJack(player.Hand);
+                        if (blackJack)
+                        {
+                            Console.WriteLine("Blackjack! {0} wins {1}", player.Name, Bets[player]);
+                            player.Balance += Convert.ToInt32((Bets[player] * 1.5) + Bets[player]);
+                            return;
+                        }
+                    }
+                }
+                Console.Write("Dealer: ");
+                Dealer.Deal(Dealer.Hand);
+                if (i==1)
+                {
+                    bool blackJack = TwentyOneRules.CheckForBlackJack(Dealer.Hand);
+                    if (blackJack)
+                    {
+                        Console.WriteLine("Dealer has Blackjack! Everyone loses!");
+                        foreach (KeyValuePair<Player,int> entry in Bets)
+                        {
+                            Dealer.Balance += entry.Value;
+                        }
                     }
                 }
             }
