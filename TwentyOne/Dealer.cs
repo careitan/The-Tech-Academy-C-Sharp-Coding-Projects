@@ -18,9 +18,9 @@ namespace TwentyOne
             Hand.Add(Deck.Cards.First());
             string cardDealt = Deck.Cards.First().Face.ToString() + " of " + Deck.Cards.First().Suit.ToString();
             Console.WriteLine(cardDealt);
-            using (StreamWriter file = new StreamWriter(@"C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\TwentyOne\log.txt",true))
+            using (StreamWriter file = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\log.txt",true))
             {
-                file.WriteLine(cardDealt);
+                file.WriteLine(DateTime.Now + " : " + cardDealt);
             }
             Deck.Cards.RemoveAt(0);
         }
