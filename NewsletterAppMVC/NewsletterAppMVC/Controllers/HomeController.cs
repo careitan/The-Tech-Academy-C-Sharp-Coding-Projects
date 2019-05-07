@@ -28,10 +28,17 @@ namespace NewsletterAppMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(string FirstName, string LastName, string EmailAddress)
+        public ActionResult SignUp(string firstName, string lastName, string emailAddress)
         {
-            return null;
-
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(emailAddress))
+            {
+                return View("~/Views/Shared/Error.cshtml");
+            }
+            else
+            {
+                string connectionString = @"Data Source=ALLAN-YOGA3;Initial Catalog=Newsletter;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                return View("Success");
+            }
         }
     }
 }
