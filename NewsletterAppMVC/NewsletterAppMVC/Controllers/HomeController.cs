@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,6 +39,25 @@ namespace NewsletterAppMVC.Controllers
             else
             {
                 string connectionString = @"Data Source=ALLAN-YOGA3;Initial Catalog=Newsletter;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+                string queryString = @"INSERT INTO Signups (FirstName, LastName, EmailAddress) VALUES (@FN, @LN, @EMAIL)";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(queryString, connection);
+                    command.Parameters.Add("@FN",SqlDbType.VarChar);
+                    command.Parameters.Add("@LN", SqlDbType.VarChar);
+                    command.Parameters.Add("@EMAIL", SqlDbType.VarChar);
+
+                    command.Parameters["@FN"].Value = firstName;
+                    command.Parameters["@LN"].Value = lastName;
+                    command.Parameters["@EMAIL"].Value = emailAddress;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+
                 return View("Success");
             }
         }
