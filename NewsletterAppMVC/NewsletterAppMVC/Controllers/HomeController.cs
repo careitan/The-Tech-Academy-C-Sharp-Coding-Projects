@@ -5,27 +5,17 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NewsletterAppMVC.Models;
+using NewsletterAppMVC.ViewModels;
 
 namespace NewsletterAppMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly string connectionString = @"Data Source=ALLAN-YOGA3;Initial Catalog=Newsletter;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -38,7 +28,7 @@ namespace NewsletterAppMVC.Controllers
             }
             else
             {
-                string connectionString = @"Data Source=ALLAN-YOGA3;Initial Catalog=Newsletter;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                
 
                 string queryString = @"INSERT INTO Signups (FirstName, LastName, EmailAddress) VALUES (@FN, @LN, @EMAIL)";
 
@@ -61,5 +51,44 @@ namespace NewsletterAppMVC.Controllers
                 return View("Success");
             }
         }
+
+        public ActionResult Admin()
+        {
+            string querySstring = @"SELECT Id, FirstName, LastName, EmailAddress, SocialSecurityNumber FROM Signups";
+            List<NewsletterSignUp> signUps = new List<NewsletterSignUp>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(querySstring, connection);
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var signup = new NewsletterSignUp();
+                    signup.Id = Convert.ToInt32(reader["Id"]);
+                    signup.FirstName = reader["FirstName"].ToString();
+                    signup.LastName = reader["LastName"].ToString();
+                    signup.EmailAddress = reader["EmailAddress"].ToString();
+                    signup.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
+                    signUps.Add(signup);
+                }
+            }
+
+            var signupVms = new List<SignupVm>();
+            foreach (var signup in signUps)
+            {
+                var signupVm = new SignupVm();
+                signupVm.FirstName = signup.FirstName;
+                signupVm.LastName = signup.LastName;
+                signupVm.EmailAddress = signup.EmailAddress;
+                signupVms.Add(signupVm);
+            }
+
+            return View(signupVms);
+        }
+
     }
 }
