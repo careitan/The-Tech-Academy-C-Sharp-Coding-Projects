@@ -81,3 +81,7 @@ C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\Newslet
 C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\NewsletterAppMVC\NewsletterAppMVC\obj\Debug\NewsletterAppMVC.dll
 C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\NewsletterAppMVC\NewsletterAppMVC\obj\Debug\NewsletterAppMVC.pdb
 C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\NewsletterAppMVC\NewsletterAppMVC\obj\Debug\NewsletterAppMVC.csprojAssemblyReference.cache
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\NewsletterAppMVC\NewsletterAppMVC\bin\EntityFramework.dll
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\NewsletterAppMVC\NewsletterAppMVC\bin\EntityFramework.SqlServer.dll
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\NewsletterAppMVC\NewsletterAppMVC\bin\EntityFramework.xml
+C:\Users\carei\Documents\GitHub\The-Tech-Academy-C-Sharp-Coding-Projects\NewsletterAppMVC\NewsletterAppMVC\bin\EntityFramework.SqlServer.xml
