@@ -1,19 +1,16 @@
-﻿using System;
+﻿using NewsletterAppMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using NewsletterAppMVC.Models;
-using NewsletterAppMVC.ViewModels;
 
 namespace NewsletterAppMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly string connectionString = @"Data Source=ALLAN-YOGA3;Initial Catalog=Newsletter;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         public ActionResult Index()
         {
             return View();
