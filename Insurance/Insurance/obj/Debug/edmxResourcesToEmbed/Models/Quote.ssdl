@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InsuranceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_CarMakeModel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarMakeId" Type="int" Nullable="false" />
+    <Property Name="CarModelId" Type="int" Nullable="false" />
+    <Property Name="MakeRisk" Type="int" Nullable="false" />
+    <Property Name="ModelRisk" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Quotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CarMakeModelId" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="IsFullCoverage" Type="bit" Nullable="false" />
+    <Property Name="DUI" Type="bit" Nullable="false" />
+    <Property Name="SpeedingTickets" Type="int" Nullable="false" />
+    <Property Name="Premium" Type="decimal" Precision="2" Scale="0" />
+  </EntityType>
+  <EntityType Name="tbl_Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="25" />
+    <Property Name="LastName" Type="varchar" MaxLength="25" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tlkp_CarMake">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Manufacturer" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tlkp_CarModel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Insurance.dbo.v_CarMakeModelMasterList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="v_CarMakeModelMasterList">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Id" Type="int" />
+    <Property Name="Manufacturer" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="MakeRisk" Type="int" />
+    <Property Name="ModelRisk" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Insurance.dbo.v_UserPremiums' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="v_UserPremiums">
+    <Key>
+      <PropertyRef Name="DOB" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="FirstName" Type="varchar" MaxLength="25" />
+    <Property Name="LastName" Type="varchar" MaxLength="25" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Premium" Type="decimal" Precision="2" Scale="0" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Insurance.dbo.v_UserQuotes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="v_UserQuotes">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DOB" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="CarMakeModelId" />
+      <PropertyRef Name="Year" />
+      <PropertyRef Name="IsFullCoverage" />
+      <PropertyRef Name="DUI" />
+      <PropertyRef Name="SpeedingTickets" />
+    </Key>
+    <Property Name="FirstName" Type="varchar" MaxLength="25" />
+    <Property Name="LastName" Type="varchar" MaxLength="25" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CarMakeModelId" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="IsFullCoverage" Type="bit" Nullable="false" />
+    <Property Name="DUI" Type="bit" Nullable="false" />
+    <Property Name="SpeedingTickets" Type="int" Nullable="false" />
+    <Property Name="Premium" Type="decimal" Precision="2" Scale="0" />
+  </EntityType>
+  <Association Name="FK_tbl_CarMakeModel_tlkp_CarMake">
+    <End Role="tlkp_CarMake" Type="Self.tlkp_CarMake" Multiplicity="1" />
+    <End Role="tbl_CarMakeModel" Type="Self.tbl_CarMakeModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tlkp_CarMake">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_CarMakeModel">
+        <PropertyRef Name="CarMakeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_CarMakeModel_tlkp_CarModel">
+    <End Role="tlkp_CarModel" Type="Self.tlkp_CarModel" Multiplicity="1" />
+    <End Role="tbl_CarMakeModel" Type="Self.tbl_CarMakeModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tlkp_CarModel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_CarMakeModel">
+        <PropertyRef Name="CarModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Quotes_tbl_CarMakeModel">
+    <End Role="tbl_CarMakeModel" Type="Self.tbl_CarMakeModel" Multiplicity="1" />
+    <End Role="tbl_Quotes" Type="Self.tbl_Quotes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_CarMakeModel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_Quotes">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Quotes_tbl_Users">
+    <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="1" />
+    <End Role="tbl_Quotes" Type="Self.tbl_Quotes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_Quotes">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="PROC_Car_Master_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="InsuranceModelStoreContainer">
+    <EntitySet Name="tbl_CarMakeModel" EntityType="Self.tbl_CarMakeModel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Quotes" EntityType="Self.tbl_Quotes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Users" EntityType="Self.tbl_Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tlkp_CarMake" EntityType="Self.tlkp_CarMake" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tlkp_CarModel" EntityType="Self.tlkp_CarModel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="v_CarMakeModelMasterList" EntityType="Self.v_CarMakeModelMasterList" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [v_CarMakeModelMasterList].[Id] AS [Id], 
+    [v_CarMakeModelMasterList].[Manufacturer] AS [Manufacturer], 
+    [v_CarMakeModelMasterList].[Name] AS [Name], 
+    [v_CarMakeModelMasterList].[MakeRisk] AS [MakeRisk], 
+    [v_CarMakeModelMasterList].[ModelRisk] AS [ModelRisk]
+    FROM [dbo].[v_CarMakeModelMasterList] AS [v_CarMakeModelMasterList]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="v_UserPremiums" EntityType="Self.v_UserPremiums" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [v_UserPremiums].[FirstName] AS [FirstName], 
+    [v_UserPremiums].[LastName] AS [LastName], 
+    [v_UserPremiums].[Email] AS [Email], 
+    [v_UserPremiums].[DOB] AS [DOB], 
+    [v_UserPremiums].[Id] AS [Id], 
+    [v_UserPremiums].[Premium] AS [Premium]
+    FROM [dbo].[v_UserPremiums] AS [v_UserPremiums]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="v_UserQuotes" EntityType="Self.v_UserQuotes" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [v_UserQuotes].[FirstName] AS [FirstName], 
+    [v_UserQuotes].[LastName] AS [LastName], 
+    [v_UserQuotes].[Email] AS [Email], 
+    [v_UserQuotes].[Id] AS [Id], 
+    [v_UserQuotes].[DOB] AS [DOB], 
+    [v_UserQuotes].[UserId] AS [UserId], 
+    [v_UserQuotes].[CarMakeModelId] AS [CarMakeModelId], 
+    [v_UserQuotes].[Year] AS [Year], 
+    [v_UserQuotes].[IsFullCoverage] AS [IsFullCoverage], 
+    [v_UserQuotes].[DUI] AS [DUI], 
+    [v_UserQuotes].[SpeedingTickets] AS [SpeedingTickets], 
+    [v_UserQuotes].[Premium] AS [Premium]
+    FROM [dbo].[v_UserQuotes] AS [v_UserQuotes]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_tbl_CarMakeModel_tlkp_CarMake" Association="Self.FK_tbl_CarMakeModel_tlkp_CarMake">
+      <End Role="tlkp_CarMake" EntitySet="tlkp_CarMake" />
+      <End Role="tbl_CarMakeModel" EntitySet="tbl_CarMakeModel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_CarMakeModel_tlkp_CarModel" Association="Self.FK_tbl_CarMakeModel_tlkp_CarModel">
+      <End Role="tlkp_CarModel" EntitySet="tlkp_CarModel" />
+      <End Role="tbl_CarMakeModel" EntitySet="tbl_CarMakeModel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Quotes_tbl_CarMakeModel" Association="Self.FK_tbl_Quotes_tbl_CarMakeModel">
+      <End Role="tbl_CarMakeModel" EntitySet="tbl_CarMakeModel" />
+      <End Role="tbl_Quotes" EntitySet="tbl_Quotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Quotes_tbl_Users" Association="Self.FK_tbl_Quotes_tbl_Users">
+      <End Role="tbl_Users" EntitySet="tbl_Users" />
+      <End Role="tbl_Quotes" EntitySet="tbl_Quotes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InsuranceModelStoreContainer" CdmEntityContainer="InsuranceEntities">
+    <EntitySetMapping Name="tbl_CarMakeModel">
+      <EntityTypeMapping TypeName="InsuranceModel.tbl_CarMakeModel">
+        <MappingFragment StoreEntitySet="tbl_CarMakeModel">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarMakeId" ColumnName="CarMakeId" />
+          <ScalarProperty Name="CarModelId" ColumnName="CarModelId" />
+          <ScalarProperty Name="MakeRisk" ColumnName="MakeRisk" />
+          <ScalarProperty Name="ModelRisk" ColumnName="ModelRisk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Quotes">
+      <EntityTypeMapping TypeName="InsuranceModel.tbl_Quotes">
+        <MappingFragment StoreEntitySet="tbl_Quotes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CarMakeModelId" ColumnName="CarMakeModelId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="IsFullCoverage" ColumnName="IsFullCoverage" />
+          <ScalarProperty Name="DUI" ColumnName="DUI" />
+          <ScalarProperty Name="SpeedingTickets" ColumnName="SpeedingTickets" />
+          <ScalarProperty Name="Premium" ColumnName="Premium" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Users">
+      <EntityTypeMapping TypeName="InsuranceModel.tbl_Users">
+        <MappingFragment StoreEntitySet="tbl_Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tlkp_CarMake">
+      <EntityTypeMapping TypeName="InsuranceModel.tlkp_CarMake">
+        <MappingFragment StoreEntitySet="tlkp_CarMake">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tlkp_CarModel">
+      <EntityTypeMapping TypeName="InsuranceModel.tlkp_CarModel">
+        <MappingFragment StoreEntitySet="tlkp_CarModel">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_CarMakeModelMasterList">
+      <EntityTypeMapping TypeName="InsuranceModel.v_CarMakeModelMasterList">
+        <MappingFragment StoreEntitySet="v_CarMakeModelMasterList">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MakeRisk" ColumnName="MakeRisk" />
+          <ScalarProperty Name="ModelRisk" ColumnName="ModelRisk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_UserPremiums">
+      <EntityTypeMapping TypeName="InsuranceModel.v_UserPremiums">
+        <MappingFragment StoreEntitySet="v_UserPremiums">
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Premium" ColumnName="Premium" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_UserQuotes">
+      <EntityTypeMapping TypeName="InsuranceModel.v_UserQuotes">
+        <MappingFragment StoreEntitySet="v_UserQuotes">
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CarMakeModelId" ColumnName="CarMakeModelId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="IsFullCoverage" ColumnName="IsFullCoverage" />
+          <ScalarProperty Name="DUI" ColumnName="DUI" />
+          <ScalarProperty Name="SpeedingTickets" ColumnName="SpeedingTickets" />
+          <ScalarProperty Name="Premium" ColumnName="Premium" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="PROC_Car_Master_List" FunctionName="InsuranceModel.Store.PROC_Car_Master_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="InsuranceModel.PROC_Car_Master_List_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MakeRisk" ColumnName="MakeRisk" />
+          <ScalarProperty Name="ModelRisk" ColumnName="ModelRisk" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InsuranceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_CarMakeModel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarMakeId" Type="Int32" Nullable="false" />
+    <Property Name="CarModelId" Type="Int32" Nullable="false" />
+    <Property Name="MakeRisk" Type="Int32" Nullable="false" />
+    <Property Name="ModelRisk" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tlkp_CarMake" Relationship="Self.FK_tbl_CarMakeModel_tlkp_CarMake" FromRole="tbl_CarMakeModel" ToRole="tlkp_CarMake" />
+    <NavigationProperty Name="tlkp_CarModel" Relationship="Self.FK_tbl_CarMakeModel_tlkp_CarModel" FromRole="tbl_CarMakeModel" ToRole="tlkp_CarModel" />
+    <NavigationProperty Name="tbl_Quotes" Relationship="Self.FK_tbl_Quotes_tbl_CarMakeModel" FromRole="tbl_CarMakeModel" ToRole="tbl_Quotes" />
+  </EntityType>
+  <EntityType Name="tbl_Quotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CarMakeModelId" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="IsFullCoverage" Type="Boolean" Nullable="false" />
+    <Property Name="DUI" Type="Boolean" Nullable="false" />
+    <Property Name="SpeedingTickets" Type="Int32" Nullable="false" />
+    <Property Name="Premium" Type="Decimal" Precision="2" Scale="0" />
+    <NavigationProperty Name="tbl_CarMakeModel" Relationship="Self.FK_tbl_Quotes_tbl_CarMakeModel" FromRole="tbl_Quotes" ToRole="tbl_CarMakeModel" />
+    <NavigationProperty Name="tbl_Users" Relationship="Self.FK_tbl_Quotes_tbl_Users" FromRole="tbl_Quotes" ToRole="tbl_Users" />
+  </EntityType>
+  <EntityType Name="tbl_Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="tbl_Quotes" Relationship="Self.FK_tbl_Quotes_tbl_Users" FromRole="tbl_Users" ToRole="tbl_Quotes" />
+  </EntityType>
+  <EntityType Name="tlkp_CarMake">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tbl_CarMakeModel" Relationship="Self.FK_tbl_CarMakeModel_tlkp_CarMake" FromRole="tlkp_CarMake" ToRole="tbl_CarMakeModel" />
+  </EntityType>
+  <EntityType Name="tlkp_CarModel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tbl_CarMakeModel" Relationship="Self.FK_tbl_CarMakeModel_tlkp_CarModel" FromRole="tlkp_CarModel" ToRole="tbl_CarMakeModel" />
+  </EntityType>
+  <EntityType Name="v_CarMakeModelMasterList">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Id" Type="Int32" />
+    <Property Name="Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MakeRisk" Type="Int32" />
+    <Property Name="ModelRisk" Type="Int32" />
+  </EntityType>
+  <EntityType Name="v_UserPremiums">
+    <Key>
+      <PropertyRef Name="DOB" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Premium" Type="Decimal" Precision="2" Scale="0" />
+  </EntityType>
+  <EntityType Name="v_UserQuotes">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DOB" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="CarMakeModelId" />
+      <PropertyRef Name="Year" />
+      <PropertyRef Name="IsFullCoverage" />
+      <PropertyRef Name="DUI" />
+      <PropertyRef Name="SpeedingTickets" />
+    </Key>
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CarMakeModelId" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="IsFullCoverage" Type="Boolean" Nullable="false" />
+    <Property Name="DUI" Type="Boolean" Nullable="false" />
+    <Property Name="SpeedingTickets" Type="Int32" Nullable="false" />
+    <Property Name="Premium" Type="Decimal" Precision="2" Scale="0" />
+  </EntityType>
+  <Association Name="FK_tbl_CarMakeModel_tlkp_CarMake">
+    <End Role="tlkp_CarMake" Type="Self.tlkp_CarMake" Multiplicity="1" />
+    <End Role="tbl_CarMakeModel" Type="Self.tbl_CarMakeModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tlkp_CarMake">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_CarMakeModel">
+        <PropertyRef Name="CarMakeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_CarMakeModel_tlkp_CarModel">
+    <End Role="tlkp_CarModel" Type="Self.tlkp_CarModel" Multiplicity="1" />
+    <End Role="tbl_CarMakeModel" Type="Self.tbl_CarMakeModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tlkp_CarModel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_CarMakeModel">
+        <PropertyRef Name="CarModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Quotes_tbl_CarMakeModel">
+    <End Role="tbl_CarMakeModel" Type="Self.tbl_CarMakeModel" Multiplicity="1" />
+    <End Role="tbl_Quotes" Type="Self.tbl_Quotes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_CarMakeModel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_Quotes">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Quotes_tbl_Users">
+    <End Role="tbl_Users" Type="Self.tbl_Users" Multiplicity="1" />
+    <End Role="tbl_Quotes" Type="Self.tbl_Quotes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_Quotes">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InsuranceEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_CarMakeModel" EntityType="Self.tbl_CarMakeModel" />
+    <EntitySet Name="tbl_Quotes" EntityType="Self.tbl_Quotes" />
+    <EntitySet Name="tbl_Users" EntityType="Self.tbl_Users" />
+    <EntitySet Name="tlkp_CarMake" EntityType="Self.tlkp_CarMake" />
+    <EntitySet Name="tlkp_CarModel" EntityType="Self.tlkp_CarModel" />
+    <EntitySet Name="v_CarMakeModelMasterList" EntityType="Self.v_CarMakeModelMasterList" />
+    <EntitySet Name="v_UserPremiums" EntityType="Self.v_UserPremiums" />
+    <EntitySet Name="v_UserQuotes" EntityType="Self.v_UserQuotes" />
+    <AssociationSet Name="FK_tbl_CarMakeModel_tlkp_CarMake" Association="Self.FK_tbl_CarMakeModel_tlkp_CarMake">
+      <End Role="tlkp_CarMake" EntitySet="tlkp_CarMake" />
+      <End Role="tbl_CarMakeModel" EntitySet="tbl_CarMakeModel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_CarMakeModel_tlkp_CarModel" Association="Self.FK_tbl_CarMakeModel_tlkp_CarModel">
+      <End Role="tlkp_CarModel" EntitySet="tlkp_CarModel" />
+      <End Role="tbl_CarMakeModel" EntitySet="tbl_CarMakeModel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Quotes_tbl_CarMakeModel" Association="Self.FK_tbl_Quotes_tbl_CarMakeModel">
+      <End Role="tbl_CarMakeModel" EntitySet="tbl_CarMakeModel" />
+      <End Role="tbl_Quotes" EntitySet="tbl_Quotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Quotes_tbl_Users" Association="Self.FK_tbl_Quotes_tbl_Users">
+      <End Role="tbl_Users" EntitySet="tbl_Users" />
+      <End Role="tbl_Quotes" EntitySet="tbl_Quotes" />
+    </AssociationSet>
+    <FunctionImport Name="PROC_Car_Master_List" ReturnType="Collection(InsuranceModel.PROC_Car_Master_List_Result)" />
+  </EntityContainer>
+  <ComplexType Name="PROC_Car_Master_List_Result">
+    <Property Type="Int32" Name="Id" Nullable="true" />
+    <Property Type="String" Name="Manufacturer" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="25" />
+    <Property Type="Int32" Name="MakeRisk" Nullable="true" />
+    <Property Type="Int32" Name="ModelRisk" Nullable="true" />
+  </ComplexType>
+</Schema>
