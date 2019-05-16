@@ -1,4 +1,5 @@
-﻿<div class="row no-gutters m-3">
+﻿@model Insurance.Models.v_UserQuotes
+<div class="row no-gutters m-3">
     <div class="card col-sm-12 col-md-10 col-lg-6 mx-auto shadow">
         <div class="card-header text-center">
             <h5 class="m-0">Get an insurance quote for your car</h5>
@@ -35,13 +36,13 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-5">
-                        <label class="checkbox-inline"><input name="DUI" type="checkbox" value="false"/> Do you have a DUI?</label>
+                        <label class="checkbox-inline"><input id="DUI" name="DUI" type="checkbox" value="false"/> Do you have a DUI?</label>
                     </div>
                     <div class="form-group col-md-5">
                         <input name="SpeedTickets" type="number" class="form-control" placeholder="How many speeding tickets?" />
                     </div>
                     <div class="form-group col-md-5">
-                        <label class="checkbox-inline"><input name="FullCoverage" type="checkbox" value="false"/> Would you like Full Coverage?</label>
+                        <label class="checkbox-inline"><input id="IsFullCoverage" name="IsFullCoverage" type="checkbox" value="false"/> Would you like Full Coverage?</label>
                     </div>
                     <button type="submit" class="btn btn-block btn-primary">Submit</button>
                 </div>

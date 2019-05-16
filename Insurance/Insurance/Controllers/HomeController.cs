@@ -19,12 +19,25 @@ namespace Insurance.Controllers
         }
 
         [HttpPost]
-        public ActionResult Quote(string FirstName, string LastName, 
-            string EmailAddress, DateTime DOB, 
-            string Make, string Model, string CarYear,
-            bool DUI, bool FullCoverage, string SpeedTickets
-            )
+        public ActionResult Quote()
+        // public ActionResult Quote(v_UserQuotes UserQuote)
+        //public ActionResult Quote(string FirstName, string LastName, 
+        //    string EmailAddress, DateTime DOB, 
+        //    string Make, string Model, string CarYear,
+        //    bool DUI, bool IsFullCoverage, string SpeedTickets
+        //    )
         {
+            var FirstName = Request["FirstName"];
+            var LastName = Request["LastName"];
+            var EmailAddress = Request["EmailAddress"];
+            var Make = Request["Make"];
+            var Model = Request["Model"];
+            var CarYear = Request["CarYear"];
+            var SpeedTickets = Request["SpeedTickets"];
+            var DOB = Request["DOB"];
+            var DUI = Request["DUI"];
+            var IsFullCoverage = Request["IsFullCoverage"];
+
             if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) ||
                 string.IsNullOrEmpty(EmailAddress) || string.IsNullOrEmpty(Make) ||
                 string.IsNullOrEmpty(Model) || string.IsNullOrEmpty(CarYear) ||
