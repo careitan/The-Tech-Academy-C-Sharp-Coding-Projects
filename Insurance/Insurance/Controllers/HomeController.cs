@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Insurance.Models;
+using Insurance.ViewModels;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 
@@ -20,28 +21,23 @@ namespace Insurance.Controllers
 
         [HttpPost]
         public ActionResult Quote()
-        // public ActionResult Quote(v_UserQuotes UserQuote)
-        //public ActionResult Quote(string FirstName, string LastName, 
-        //    string EmailAddress, DateTime DOB, 
-        //    string Make, string Model, string CarYear,
-        //    bool DUI, bool IsFullCoverage, string SpeedTickets
-        //    )
         {
-            var FirstName = Request["FirstName"];
-            var LastName = Request["LastName"];
-            var EmailAddress = Request["EmailAddress"];
+            v_UserQuotes userQuote = new v_UserQuotes();
+            userQuote.FirstName = Request["FirstName"];
+            userQuote.LastName = Request["LastName"];
+            userQuote.Email = Request["EmailAddress"];
             var Make = Request["Make"];
             var Model = Request["Model"];
-            var CarYear = Request["CarYear"];
-            var SpeedTickets = Request["SpeedTickets"];
-            var DOB = Request["DOB"];
-            var DUI = Request["DUI"];
-            var IsFullCoverage = Request["IsFullCoverage"];
+            userQuote.Year = int.Parse(Request["CarYear"].ToString());
+            userQuote.SpeedingTickets = int.Parse(Request["SpeedTickets"].ToString());
+            userQuote.DOB = DateTime.Parse(Request["DOB"].ToString());
+            userQuote.DUI = string.IsNullOrEmpty(Request["DUI"]) ? false : true;
+            userQuote.IsFullCoverage = string.IsNullOrEmpty(Request["IsFullCoverage"]) ? false : true;
 
-            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) ||
-                string.IsNullOrEmpty(EmailAddress) || string.IsNullOrEmpty(Make) ||
-                string.IsNullOrEmpty(Model) || string.IsNullOrEmpty(CarYear) ||
-                string.IsNullOrEmpty(SpeedTickets)
+
+            if (string.IsNullOrEmpty(userQuote.FirstName) || string.IsNullOrEmpty(userQuote.LastName) ||
+                string.IsNullOrEmpty(userQuote.Email) || string.IsNullOrEmpty(Make) ||
+                string.IsNullOrEmpty(Model)
                 )
             {
                 return View("~/Views/Shared/Error.cshtml");
@@ -49,6 +45,16 @@ namespace Insurance.Controllers
             else
             {
                 List<v_CarMakeModelMasterList> LookupCars = GetVehicleMasterList();
+                QuoteVm quoteVm = new QuoteVm();
+
+                v_CarMakeModelMasterList Temp = LookupCars.FirstOrDefault(c => c.Manufacturer == Make && c.Name == Model);
+                userQuote.CarMakeModelId = (int)Temp.Id;
+
+                quoteVm.FirstName = userQuote.FirstName;
+                quoteVm.LastName = userQuote.LastName;
+                quoteVm.Premium = 0.00m;
+                
+
 
 
                 return View("Success");
@@ -64,6 +70,7 @@ namespace Insurance.Controllers
                 SqlCommand command = new SqlCommand("PROC_Car_Master_List", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
+                connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
