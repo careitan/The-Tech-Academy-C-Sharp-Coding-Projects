@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Insurance.Models;
 using Insurance.ViewModels;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
+using System.Data;
 
 namespace Insurance.Controllers
 {
@@ -53,11 +53,57 @@ namespace Insurance.Controllers
                 quoteVm.FirstName = userQuote.FirstName;
                 quoteVm.LastName = userQuote.LastName;
                 quoteVm.Premium = 0.00m;
-                
 
+                // Calculate premium
+                userQuote.Premium = 50.0m;
 
+                userQuote.Premium += ((DateTime.Now.Year - userQuote.DOB.Year) < 18) ? 100.0m : 0;
+                if ((((DateTime.Now.Year - userQuote.DOB.Year) >= 18) 
+                    && ((DateTime.Now.Year - userQuote.DOB.Year) < 25)) 
+                    || ((DateTime.Now.Year - userQuote.DOB.Year) > 25)) { userQuote.Premium += 25.0m; }
+                if (userQuote.Year <2000 || userQuote.Year > 2015) { userQuote.Premium += 25.0m; }
+                userQuote.Premium += (Make == "Porsche") ? 25.0m : 0;
+                userQuote.Premium += (Model == "911 Carrera") ? 25.0m : 0;
+                userQuote.Premium += userQuote.SpeedingTickets * 10.0m;
+                userQuote.Premium += (userQuote.DUI) ? userQuote.Premium * 1.25m : 0;
+                userQuote.Premium += (userQuote.IsFullCoverage) ? userQuote.Premium * 1.50m : 0;
 
-                return View("Success");
+                quoteVm.Premium = (decimal)userQuote.Premium;
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                { 
+                    SqlCommand command = new SqlCommand(@"PROC_Save_User_Info_for_Quote",connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.Clear();
+
+                    command.Parameters.Add("FirstName", SqlDbType.VarChar);
+                    command.Parameters.Add("LastName", SqlDbType.VarChar);
+                    command.Parameters.Add("Email", SqlDbType.VarChar);
+                    command.Parameters.Add("DOB", SqlDbType.DateTime);
+                    command.Parameters.Add("CarMakeModelId", SqlDbType.Int);
+                    command.Parameters.Add("Year", SqlDbType.Int);
+                    command.Parameters.Add("SpeedingTickets", SqlDbType.Int);
+                    command.Parameters.Add("IsFullCoverage", SqlDbType.Bit);
+                    command.Parameters.Add("DUI", SqlDbType.Bit);
+                    command.Parameters.Add("Premium", SqlDbType.Decimal);
+
+                    command.Parameters["FirstName"].Value = userQuote.FirstName;
+                    command.Parameters["LastName"].Value = userQuote.LastName;
+                    command.Parameters["Email"].Value = userQuote.Email;
+                    command.Parameters["DOB"].Value = userQuote.DOB;
+                    command.Parameters["CarMakeModelId"].Value = userQuote.CarMakeModelId;
+                    command.Parameters["Year"].Value = userQuote.Year;
+                    command.Parameters["SpeedingTickets"].Value = userQuote.SpeedingTickets;
+                    command.Parameters["IsFullCoverage"].Value = userQuote.IsFullCoverage;
+                    command.Parameters["DUI"].Value = userQuote.DUI;
+                    command.Parameters["Premium"].Value = (decimal)userQuote.Premium;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+
+                return View("Success", quoteVm);
             }
         }
 
